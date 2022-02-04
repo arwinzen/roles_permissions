@@ -22,7 +22,11 @@ Route::get('/', function () {
 Route::group(['middleware' => 'auth'], function(){
     Route::view('home', 'home');
     Route::resource('articles', ArticleController::class);
-    Route::resource('categories', CategoryController::class);
+
+    // administrative routes
+    Route::group(['middleware' => 'is_admin'], function(){
+        Route::resource('categories', CategoryController::class);
+    });
 });
 
 

@@ -13,10 +13,10 @@ class ArticleController extends Controller
 //        $articles = Article::all();
 
         // when do we use compact?
-//        return view('articles.index', compact('articles'));
+//        return view('articles.index', compact('articles'))
 
         return view('articles.index', [
-            'articles' => Article::all()
+            'articles' => Article::with('user' )->get()
         ]);
     }
 

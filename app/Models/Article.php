@@ -12,6 +12,10 @@ class Article extends Model
 
     protected $fillable = ['title', 'full_text', 'category_id', 'user_id'];
 
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
     /**
      * The "booted" method of the model.
      *
@@ -19,8 +23,11 @@ class Article extends Model
      */
     protected static function booted()
     {
-        static::addGlobalScope('user', function (Builder $builder) {
-            $builder->where('user_id', auth()->id());
-        });
+        // scope applies only if user is logged in and is an admin
+        if(auth()->check() && !auth()->user()->is_admin){
+            static::addGlobalScope('user', function (Builder $builder) {
+                $builder->where('user_id', auth()->id());
+            });
+        }
     }
 }
