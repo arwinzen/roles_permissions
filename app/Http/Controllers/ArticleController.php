@@ -36,6 +36,8 @@ class ArticleController extends Controller
             'category_id' => 'required|integer',
         ]);
 
+        $attributes['user_id'] = auth()->id();
+
         Article::create($attributes);
 
         return redirect()->route('articles.index');
@@ -55,15 +57,13 @@ class ArticleController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Article  $article
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Article $article)
     {
-        //
+        $categories = Category::all();
+        return view('articles.edit', [
+            'article' => $article,
+            'categories' => $categories
+        ]);
     }
 
     /**

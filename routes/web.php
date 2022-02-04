@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,7 @@ Route::get('/', function () {
 Route::group(['middleware' => 'auth'], function(){
     Route::view('home', 'home');
     Route::resource('articles', ArticleController::class);
+    Route::resource('categories', CategoryController::class);
 });
 
 
