@@ -32,11 +32,11 @@
                             </select>
                             <br />
 
-                            @can('publish-articles')
+                            @if(auth()->user()->is_admin || auth()->user()->is_publisher)
                                 <input type="checkbox" name="published" value="1"
                                        @if ($article->published_at) checked @endif /> Published
                                 <br /><br />
-                            @endcan
+                            @endif
 
                             <input type="submit" value=" Update Article " class="btn btn-primary" />
                         </form>
