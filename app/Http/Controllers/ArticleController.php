@@ -63,6 +63,9 @@ class ArticleController extends Controller
 
     public function edit(Article $article)
     {
+        // authorising the update action via policy
+        $this->authorize('update', $article);
+
         $categories = Category::all();
         return view('articles.edit', [
             'article' => $article,
@@ -79,6 +82,8 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
+        $this->authorize('update', $article);
+
         $attributes = $request->validate([
             'title' => 'required|string',
             'full_text' => 'required|string',
@@ -100,6 +105,8 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
+        $this->authorize('update', $article);
+
         $article->delete();
 
         return redirect()->route('articles.index');
