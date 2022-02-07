@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // when do we use call
+        // when do we use call?
         $this->call(CategoryTableSeeder::class);
     }
 }

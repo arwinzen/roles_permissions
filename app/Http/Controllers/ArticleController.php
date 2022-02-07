@@ -33,7 +33,6 @@ class ArticleController extends Controller
         $attributes = $request->validate([
             'title' => 'required|string',
             'full_text' => 'required|string',
-            'category_id' => 'required|integer',
         ]);
 
         $attributes['user_id'] = auth()->id();
@@ -82,7 +81,6 @@ class ArticleController extends Controller
         $attributes = $request->validate([
             'title' => 'required|string',
             'full_text' => 'required|string',
-            'category_id' => 'required|integer',
         ]);
 
         $attributes['published_at'] = (auth()->user()->is_admin || auth()->user()->is_publisher)
