@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ArticleController extends Controller
 {
@@ -38,7 +39,7 @@ class ArticleController extends Controller
         $attributes['user_id'] = auth()->id();
         // only store attribute for published_at if authenticated user is an admin or a publisher
         // additionally populate column only if checkbox is selected
-        $attributes['published_at'] = (auth()->user()->is_admin || auth()->user()->is_publisher)
+        $attributes['published_at'] = Gate::allows('publish-articles')
                                         && $request->input('published') ? now() : null;
 
         Article::create($attributes);
@@ -83,7 +84,7 @@ class ArticleController extends Controller
             'full_text' => 'required|string',
         ]);
 
-        $attributes['published_at'] = (auth()->user()->is_admin || auth()->user()->is_publisher)
+        $attributes['published_at'] = Gate::allows('publish-articles')
                                      && $request->input('published') ? now() : null;
 
         $article->update($attributes);
