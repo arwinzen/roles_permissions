@@ -54,7 +54,8 @@ class ArticlePolicy
      */
     public function update(User $user, Article $article)
     {
-        return $user->id === $article->user_id
+        // only the author or team members are allowed to edit the article
+        return $user->id === $article->user_id || $user->organization_id === $article->user_id
             ? Response::allow()
             : Response::deny('You do not own this article.');
     }

@@ -26,7 +26,9 @@ class Article extends Model
         // scope applies only if user is logged in and is an admin
         if(auth()->check() && !auth()->user()->is_admin && !auth()->user()->is_publisher){
             static::addGlobalScope('user', function (Builder $builder) {
-                $builder->where('user_id', auth()->id());
+                // check for organization_id on authenticated user, else use user_id in the scope
+                $organizationId = auth()->user()->organization_id ?? auth()->id();
+                $builder->where('user_id', $organizationId);
             });
         }
     }
