@@ -10,6 +10,7 @@
                     <div class="card-body">
                         Link for new users:
                         <br />
+                        {{-- organization id will be the userid of the first person who joined the team --}}
                         {{ route('register') }}?organization_id={{ auth()->user()->organization_id ? auth()->user()->organization_id : auth()->id() }}
 
                         <br /><br />

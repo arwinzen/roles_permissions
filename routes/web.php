@@ -23,7 +23,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::view('home', 'home');
     Route::resource('articles', ArticleController::class);
     // invitation link for users to join organization
-    Route::view('invite', 'invite')->name('invite');
+    Route::view('invite', 'invite')->name('invite ');
 
     // administrative routes
     Route::group(['middleware' => 'is_admin'], function(){

@@ -31,12 +31,14 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
+        $organizationId = auth()->user()->organization_id ?? auth()->id();
+
         $attributes = $request->validate([
             'title' => 'required|string',
             'full_text' => 'required|string',
         ]);
 
-        $attributes['user_id'] = auth()->id();
+        $attributes['user_id'] = $organizationId;
         // only store attribute for published_at if authenticated user is an admin or a publisher
         // additionally populate column only if checkbox is selected
         $attributes['published_at'] = Gate::allows('publish-articles')
