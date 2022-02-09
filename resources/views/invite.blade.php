@@ -17,7 +17,7 @@
 
                         Link for existing users:
                         <br />
-{{--                        {{ route('join.create') }}?organization_id={{ auth()->user()->organization_id ? auth()->user()->organization_id : auth()->id() }}--}}
+                        {{ route('join.create') }}?organization_id={{ auth()->user()->organization_id ? auth()->user()->organization_id : auth()->id() }}
                     </div>
                 </div>
             </div>

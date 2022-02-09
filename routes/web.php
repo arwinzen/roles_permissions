@@ -27,10 +27,11 @@ Route::group(['middleware' => 'auth'], function(){
     // invitation link for users to join organization
     Route::view('invite', 'invite')->name('invite');
 
-    // invitation for existing users
+    // invitation for existing users to join an organization
     Route::get('join', [JoinController::class, 'create'])->name('join.create');
     Route::post('join', [JoinController::class, 'store'])->name('join.store');
 
+    // select an organization from the dropdown
     Route::get('organization/{organization_id}', [JoinController::class, 'organization'])->name('organization');
 
     // administrative routes
