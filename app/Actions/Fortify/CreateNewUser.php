@@ -32,13 +32,18 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
         ])->validate();
 
-        return User::create([
+        // create new user in users table
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
-            'organization_id' => ((isset($input['organization_id']) && $input['organization_id'] != '')
-                ? $input['organization_id']
-                : null)
         ]);
+
+        // if user is registered through an invitation, then add a new row in the intermediate table (organization_user)
+        if(isset($input['organization_id']) && $input['organization_id'] != '') {
+            $user->organizations()->attach($input['organization_id']);
+        }
+
+        return $user;
     }
 }

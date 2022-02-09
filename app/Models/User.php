@@ -54,4 +54,26 @@ class User extends Authenticatable
     {
         return $this->role_id == 3;
     }
+
+    public function getOrganizationIdAttribute()
+    {
+        // return organization_id from session if already in session
+        if (session('organization_id')){
+            return session('organization_id');
+        }
+
+        // set organization_id to first organization in session if user belongs to an organization
+        $organization = $this->organizations()->first();
+        if ($organization) {
+            session(['organization_id' => $organization->id, 'organization_name' => $organization->name]);
+            return $organization->id;
+        }
+
+        // return null if user doesn't belong to an organization
+        return null;
+    }
+
+    public function organizations(){
+        return $this->belongsToMany(User::class, 'organization_user', 'user_id', 'organization_id');
+    }
 }
