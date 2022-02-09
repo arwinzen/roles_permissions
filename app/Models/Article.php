@@ -23,8 +23,8 @@ class Article extends Model
      */
     protected static function booted()
     {
-        // scope applies only if user is logged in and is not an admin or publisher
-        if(auth()->check() && !auth()->user()->is_admin && !auth()->user()->is_publisher){
+        // scope applies only if user is logged in and is not an admin
+        if(auth()->check() && !auth()->user()->is_admin){
             static::addGlobalScope('user', function (Builder $builder) {
                 // check for organization_id on authenticated user, else use user_id in the scope
                 $organizationId = auth()->user()->organization_id ?? auth()->id();
