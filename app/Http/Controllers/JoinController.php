@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class JoinController extends Controller
 {
     public function create(){
+
         $organization = User::findOrFail(request('organization_id'));
 
         return view('join', [
